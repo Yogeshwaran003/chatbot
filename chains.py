@@ -1,16 +1,17 @@
-import models
-import prompt
+# chains.py
 from transformers import pipeline
 
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
-candidate_intents = ["job_search", "resume_help", "roadmap_request", "greeting", "interview_tips", "general_question"]
+def chat(prompt):
+    labels = ["greeting", "goodbye", "job_opportunity",
+    "skill_roadmap", "resume_help", "interview_prep","language_learning",
+      "study_resources", "career_advice"]
+    result = classifier(prompt, labels)
+    return result["labels"][0]  # Top predicted intent
 
-user_input = " I need a roadmap to learn backend development"
 
-result = classifier(user_input, candidate_intents)
-
-print("Predicted Intent:", result["labels"][0])
+print("Chat function initialized with zero-shot classification model.")
 
 # def chat(query):
 #     """
