@@ -2,16 +2,16 @@
 from transformers import pipeline
 
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
+# classifier = pipeline("text-classification", model="Falconsai/intent_classification")
 
 def chat(prompt):
     labels = ["greeting", "goodbye", "job_opportunity",
-    "skill_roadmap", "resume_help", "interview_prep","language_learning",
+    "skill_roadmap", "resume_help", "interview_prep","language_change",
       "study_resources", "career_advice"]
     result = classifier(prompt, labels)
     return result["labels"][0]  # Top predicted intent
 
-
-print("Chat function initialized with zero-shot classification model.")
+#################################################################################################################
 
 # def chat(query):
 #     """
@@ -26,3 +26,12 @@ print("Chat function initialized with zero-shot classification model.")
 
 #     response = chain.invoke(query)
 #     return response.content
+
+
+# from transformers import pipeline
+
+# classifier = pipeline("text-classification", model="Falconsai/intent_classification")
+
+# def chat(prompt):
+#     result = classifier(prompt)
+#     return result[0]["label"]

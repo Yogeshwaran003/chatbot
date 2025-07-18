@@ -8,3 +8,4 @@ def get_llm():
             return f"Simulated response for: {query}"
 
     return MockLLM()
+
