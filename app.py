@@ -1,5 +1,5 @@
 import streamlit as st
-
+import chains
 # Title
 st.set_page_config(page_title="Simple Chatbot", page_icon="🤖")
 st.markdown("<h1 style='text-align: center;'>🤖 ChatBot Interface</h1>", unsafe_allow_html=True)
@@ -23,8 +23,9 @@ user_input = st.chat_input("Type your message...")
 # Bot response simulation
 def bot_response(user_text):
     # You can plug your chatbot logic or model here
-    return f"You said: '{user_text}'. I'm a bot, still learning!"
-
+    response = chains.chat(user_text)
+    # return f"You said: '{user_text}'. I'm a bot, still learning!"
+    return response
 # Handle input
 if user_input:
     # Save user message
