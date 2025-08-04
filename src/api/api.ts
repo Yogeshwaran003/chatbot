@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://0.0.0.0:8000/',
+  baseURL: 'https://cd117dac790a.ngrok-free.app/', // Replace with your actual API base URL
   headers: {
     'Content-Type': 'application/json',
   },
-});
+});     
 
 // Exported function to get next question suggestions
 export const getNextQuestionSuggestions = async (question) => {

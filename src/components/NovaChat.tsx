@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Send, BookOpen, Lightbulb } from "lucide-react";
 import novaAvatar from "@/assets/nova-avatar.png";
+import { getNextQuestionSuggestions } from "@/api/api";
 
 interface Message {
   id: string;
@@ -23,7 +24,7 @@ export const NovaChat = () => {
   ]);
   const [inputValue, setInputValue] = useState("");
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
     const userMessage: Message = {
@@ -33,19 +34,33 @@ export const NovaChat = () => {
       timestamp: new Date(),
     };
 
+    const currentInput = inputValue;
     setMessages(prev => [...prev, userMessage]);
     setInputValue("");
 
-    // Simulate Nova's response
-    setTimeout(() => {
+    // Call API and display response
+    try {
+      const apiResponse = await getNextQuestionSuggestions(currentInput);
+      const responseText = apiResponse && apiResponse.length > 0 
+        ? apiResponse.join(', ') 
+        : 'No response from API';
+      
       const novaResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: `That's a great question! I love your curiosity. Let me help you explore this step by step. Learning is all about taking things one piece at a time, and you're doing amazing! 📘`,
+        text: responseText,
         isNova: true,
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, novaResponse]);
-    }, 1000);
+    } catch (error) {
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: 'Error: Unable to get response from API',
+        isNova: true,
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, errorResponse]);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
