@@ -23,6 +23,7 @@ export const NovaChat = () => {
     },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [suggestedQuestions, setSuggestedQuestions] = useState<string[]>([]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -38,28 +39,12 @@ export const NovaChat = () => {
     setMessages(prev => [...prev, userMessage]);
     setInputValue("");
 
-    // Call API and display response
+    // Call API and update suggestions
     try {
       const apiResponse = await getNextQuestionSuggestions(currentInput);
-      const responseText = apiResponse && apiResponse.length > 0 
-        ? apiResponse.join(', ') 
-        : 'No response from API';
-      
-      const novaResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        text: responseText,
-        isNova: true,
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, novaResponse]);
+      setSuggestedQuestions(apiResponse || ['No response from API']);
     } catch (error) {
-      const errorResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        text: 'Error: Unable to get response from API',
-        isNova: true,
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, errorResponse]);
+      setSuggestedQuestions(['Error: Unable to get response from API']);
     }
   };
 
@@ -69,11 +54,7 @@ export const NovaChat = () => {
     }
   };
 
-  const suggestedQuestions = [
-    "Help me with math",
-    "Explain photosynthesis",
-    "What is coding?",
-  ];
+
 
   return (
     <div className="flex flex-col h-full max-w-4xl mx-auto p-4">
@@ -123,13 +104,13 @@ export const NovaChat = () => {
       </div>
 
       {/* Suggested Questions */}
-      {messages.length === 1 && (
+      {suggestedQuestions.length > 0 && (
         <div className="mb-4">
           <p className="text-sm text-muted-foreground mb-2">Try asking about:</p>
           <div className="flex flex-wrap gap-2">
-            {suggestedQuestions.map((question) => (
+            {suggestedQuestions.map((question, index) => (
               <Button
-                key={question}
+                key={`${question}-${index}`}
                 variant="outline"
                 size="sm"
                 onClick={() => setInputValue(question)}
