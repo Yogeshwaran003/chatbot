@@ -1,0 +1,46 @@
+.profile-bar {
+  margin: 1vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  min-width: 70vw;
+  max-width: 70%;
+
+  /* Glassmorphism theme matching InputBox */
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  /* Light blue text + glow */
+  color: #ADD8E6;
+  text-shadow: 0 0 5px rgba(173, 216, 230, 0.8),
+               0 0 10px rgba(173, 216, 230, 0.6),
+               0 0 15px rgba(173, 216, 230, 0.5);
+}
+
+.chat-toggle {
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+
+  /* Glassmorphic frame */
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

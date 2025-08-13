@@ -1,0 +1,117 @@
+.signin-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0b3d91 0%, #092b66 100%);
+  padding: 20px;
+}
+
+.signin-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 400px;
+  width: 100%;
+}
+
+.signin-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.signin-form .form-group {
+  margin-bottom: 20px;
+}
+
+.signin-form label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #eaeaea;
+}
+
+.signin-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.signin-form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.signin-form input:focus {
+  border-color: #3cb371;
+  box-shadow: 0 0 0 3px rgba(60, 179, 113, 0.4);
+  outline: none;
+}
+
+.signin-button {
+  width: 100%;
+  padding: 12px;
+  background-color: rgba(60, 179, 113, 0.9);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.signin-button:hover {
+  background-color: rgba(27, 210, 106, 0.9);
+}
+
+.signup-text {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 15px;
+}
+
+.signup-text a {
+  color: #3cb371;
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px; /* space for eye icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.2s ease;
+}
+
+.eye-icon:hover {
+  color: #3cb371; /* green accent */
+}

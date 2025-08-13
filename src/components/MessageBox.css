@@ -1,0 +1,58 @@
+.message-container {
+  display: flex;
+  margin: 10px 200px;
+}
+
+.message-container.sender {
+  justify-content: flex-end;
+  border-radius: 16px 16px 0 16px;
+}
+
+.message-bubble.sender {
+  justify-content: center;
+  border-radius: 16px 16px 0 16px;
+}
+
+.message-container.receiver {
+  justify-content: flex-start;
+  border-radius: 16px 16px 0 16px;
+}
+
+.message-bubble.receiver {
+  justify-content: center;
+  border-radius: 16px 16px 16px 0px;
+}
+
+/* Glassmorphic bubble */
+.message-bubble {
+  max-width: 60%;
+  min-width: 12%;
+  padding: 10px 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-break: break-word;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Light blue glowing text */
+  color: #ADD8E6;
+  text-shadow: 0 0 5px rgba(173, 216, 230, 0.8),
+               0 0 10px rgba(173, 216, 230, 0.6),
+               0 0 15px rgba(173, 216, 230, 0.5);
+}
+
+/* Slightly different tones for sender vs receiver */
+.sender .message-bubble {
+  background: rgba(60, 179, 113, 0.15); /* green tint */
+}
+
+.receiver .message-bubble {
+  background: rgba(255, 255, 255, 0.15); /* white tint */
+}
