@@ -1,4 +1,5 @@
 .profile-bar {
+  z-index: 1000; /* Ensures it sits above chat messages */
   margin: 1vw;
   display: flex;
   justify-content: space-between;
@@ -29,6 +30,12 @@
   align-items: center;
 }
 
+.profile-container {
+  position: relative;
+  display: inline-block;
+  z-index: 200; /* Ensures dropdown sits above chat messages */
+}
+
 .profile-pic {
   width: 40px;
   height: 40px;
@@ -43,4 +50,32 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  min-width: 120px;
+  z-index: 9999; /* Keeps dropdown above everything else */
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  color: #ADD8E6;
+  text-shadow: 0 0 5px rgba(173, 216, 230, 0.8),
+               0 0 10px rgba(173, 216, 230, 0.6);
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.25);
 }

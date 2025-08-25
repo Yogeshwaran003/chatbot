@@ -48,3 +48,70 @@
   background: rgba(173, 216, 230, 0.4);
   box-shadow: 0 0 10px rgba(173, 216, 230, 0.6);
 }
+
+/* Hide default file input */
+.file-input {
+  display: none;
+}
+
+/* Upload button (paperclip icon) */
+.upload-btn {
+  background: rgba(173, 216, 230, 0.2);
+  border: none;
+  outline: none;
+  color: #ADD8E6;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  margin-right: 8px;
+}
+
+.upload-btn:hover {
+  background: rgba(173, 216, 230, 0.4);
+  box-shadow: 0 0 10px rgba(173, 216, 230, 0.6);
+}
+
+/* File preview container */
+.file-preview {
+  display: flex;
+  align-items: center;
+  background: rgba(173, 216, 230, 0.1);
+  border: 1px solid rgba(173, 216, 230, 0.3);
+  border-radius: 12px;
+  padding: 3px 8px;
+  margin-left: 8px;
+  font-size: 12px;
+  color: #ADD8E6;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* File name styling */
+.file-name {
+  margin-right: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Remove file (X icon) */
+.remove-file {
+  cursor: pointer;
+  font-size: 14px;
+  color: #FF6B6B;
+  transition: color 0.2s ease;
+}
+
+.remove-file:hover {
+  color: #ff3b3b;
+}
+
+/* Keep input and file preview in one row */
+.input-with-preview {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}

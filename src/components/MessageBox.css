@@ -40,9 +40,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  /* color: white; */
   /* Light blue glowing text */
-  color: #ADD8E6;
+  color: #ffffff;
   text-shadow: 0 0 5px rgba(173, 216, 230, 0.8),
                0 0 10px rgba(173, 216, 230, 0.6),
                0 0 15px rgba(173, 216, 230, 0.5);
