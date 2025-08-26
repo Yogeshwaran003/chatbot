@@ -10,9 +10,7 @@ const Chatbox = () => {
   const [messages, setMessages] = useState([
     { text: "Hello! How can I help you?", sender: false, suggestions: [] }
   ]);
-  const [history, setHistory] = useState([
-    { role: "assistant", content: "Hello! How can I help you?" }
-  ]);
+  const [history, setHistory] = useState([]);
   
   const messagesEndRef = useRef(null);
 
@@ -23,16 +21,14 @@ const Chatbox = () => {
 
   const handleSend = async (newMessage) => {
     if (newMessage.trim() !== "") {
-      // Add user message to UI and history
+      // Add user message to UI
       setMessages((prev) => [...prev, { text: newMessage, sender: true }]);
-      const newHistory = [...history, { role: "user", content: newMessage }];
-      setHistory(newHistory);
       
       // Add loading message
       setMessages((prev) => [...prev, { text: "Thinking...", sender: false }]);
       
       try {
-        const response = await sendMessage(newMessage, newHistory);
+        const response = await sendMessage(newMessage, history);
         const assistantResponse = response.response || "Sorry, I couldn't process that.";
         const suggestions = response.Suggestion || [];
         
@@ -43,8 +39,8 @@ const Chatbox = () => {
           return [...newMessages, { text: assistantResponse, sender: false, suggestions }];
         });
         
-        // Update history with assistant response
-        setHistory((prev) => [...prev, { role: "assistant", content: assistantResponse }]);
+        // Update history with new conversation turn
+        setHistory((prev) => [...prev, { user: newMessage, assistant: assistantResponse }]);
       } catch (error) {
         const errorMessage = "Sorry, something went wrong. Please try again.";
         
@@ -56,7 +52,7 @@ const Chatbox = () => {
         });
         
         // Update history with error response
-        setHistory((prev) => [...prev, { role: "assistant", content: errorMessage }]);
+        setHistory((prev) => [...prev, { user: newMessage, assistant: errorMessage }]);
       }
     }
   };
