@@ -2,12 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import ProfileBar from "../components/profilebar.jsx";
 import InputBox from "../components/inputbox.jsx";
 import MessageBox from "../components/messagebox.jsx";
+import Suggestions from "../components/Suggestions.jsx";
 import { sendMessage } from "../api/api.js";
 import "./chatbox.css";
 
 const Chatbox = () => {
   const [messages, setMessages] = useState([
-    { text: "Hello! How can I help you?", sender: false }
+    { text: "Hello! How can I help you?", sender: false, suggestions: [] }
+  ]);
+  const [history, setHistory] = useState([
+    { role: "assistant", content: "Hello! How can I help you?" }
   ]);
   
   const messagesEndRef = useRef(null);
@@ -19,29 +23,46 @@ const Chatbox = () => {
 
   const handleSend = async (newMessage) => {
     if (newMessage.trim() !== "") {
-      // Add user message
+      // Add user message to UI and history
       setMessages((prev) => [...prev, { text: newMessage, sender: true }]);
+      const newHistory = [...history, { role: "user", content: newMessage }];
+      setHistory(newHistory);
       
       // Add loading message
       setMessages((prev) => [...prev, { text: "Thinking...", sender: false }]);
       
       try {
-        const response = await sendMessage(newMessage);
-        // Remove loading message and add API response
+        const response = await sendMessage(newMessage, newHistory);
+        const assistantResponse = response.response || "Sorry, I couldn't process that.";
+        const suggestions = response.Suggestion || [];
+        
+        // Remove loading message and add API response with suggestions
         setMessages((prev) => {
           const newMessages = [...prev];
           newMessages.pop(); // Remove "Thinking..." message
-          return [...newMessages, { text: response.response || "Sorry, I couldn't process that.", sender: false }];
+          return [...newMessages, { text: assistantResponse, sender: false, suggestions }];
         });
+        
+        // Update history with assistant response
+        setHistory((prev) => [...prev, { role: "assistant", content: assistantResponse }]);
       } catch (error) {
+        const errorMessage = "Sorry, something went wrong. Please try again.";
+        
         // Remove loading message and add error message
         setMessages((prev) => {
           const newMessages = [...prev];
           newMessages.pop(); // Remove "Thinking..." message
-          return [...newMessages, { text: "Sorry, something went wrong. Please try again.", sender: false }];
+          return [...newMessages, { text: errorMessage, sender: false, suggestions: [] }];
         });
+        
+        // Update history with error response
+        setHistory((prev) => [...prev, { role: "assistant", content: errorMessage }]);
       }
     }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    handleSend(suggestion);
   };
 
   return (
@@ -50,7 +71,15 @@ const Chatbox = () => {
       
       <div className="messages-area">
         {messages.map((msg, index) => (
-          <MessageBox key={index} message={msg.text} sender={msg.sender} />
+          <div key={index}>
+            <MessageBox message={msg.text} sender={msg.sender} />
+            {!msg.sender && msg.suggestions && msg.suggestions.length > 0 && (
+              <Suggestions 
+                suggestions={msg.suggestions} 
+                onSuggestionClick={handleSuggestionClick}
+              />
+            )}
+          </div>
         ))}
         <div ref={messagesEndRef} />
       </div>
